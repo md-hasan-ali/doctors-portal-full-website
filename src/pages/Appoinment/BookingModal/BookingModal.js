@@ -27,7 +27,6 @@ const BookingModal = ({ open, handleBookingClose, booking, date }) => {
         // collect data 
         // send to server 
 
-
         handleBookingClose();
         e.preventDefault();
     }

@@ -8,6 +8,8 @@ import {
 import './App.css';
 import Appoinment from "./pages/Appoinment/Appoinment/Appoinment";
 import Home from "./pages/Home/Home/Home";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
@@ -23,7 +25,15 @@ function App() {
             <Appoinment></Appoinment>
           </Route>
 
-          <Route path="/">
+          <Route path="/login">
+            <Login></Login>
+          </Route>
+
+          <Route path="/register">
+            <Register></Register>
+          </Route>
+
+          <Route exact path="/">
             <Home />
           </Route>
         </Switch>
