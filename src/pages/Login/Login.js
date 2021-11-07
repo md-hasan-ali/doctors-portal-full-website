@@ -1,11 +1,15 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import useAuth from '../../contexts/useAuth';
 import loginImg from '../../images/login.png'
 
 const Login = () => {
-
     const [loginData, setLoginData] = useState({})
+    const { user, isLoadding, loginUser, error, signInWithGoogle } = useAuth();
+
+    const location = useLocation();
+    const history = useHistory();
 
     const handleOnChange = (e) => {
         const field = e.target.name;
@@ -15,8 +19,11 @@ const Login = () => {
         setLoginData(newLoginData)
     }
     const handleSubmit = (e) => {
-        console.log(loginData)
+        loginUser(loginData.email, loginData.password, location, history);
         e.preventDefault();
+    }
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history);
     }
     return (
         <Container>
@@ -25,7 +32,7 @@ const Login = () => {
                     <Typography variant='body1'>
                         Login
                     </Typography>
-                    <form onSubmit={handleSubmit}>
+                    {!isLoadding && <form onSubmit={handleSubmit}>
                         <TextField
                             sx={{ width: '70%', m: 1 }}
                             id="standard-basic"
@@ -47,7 +54,16 @@ const Login = () => {
                         <NavLink style={{ textDecoration: 'none' }} to="/register">
                             <Button >New User? Please Register</Button>
                         </NavLink>
-                    </form>
+                    </form>}
+                    <p>-------------------Or------------------</p>
+                    <Button onClick={handleGoogleSignIn} sx={{ width: '70%', m: 2 }} variant="contained" >Google SignIn</Button>
+
+                    {isLoadding && <CircularProgress style={{ marginTop: '40px' }} />}
+
+                    {user?.email && <Alert severity="success">User Login Successfully...</Alert>}
+
+                    {error && <Alert severity="error">{error}</Alert>}
+
                 </Grid>
                 <Grid item xs={12} md={5}>
                     <img style={{ width: '100%' }} src={loginImg} alt="" />
