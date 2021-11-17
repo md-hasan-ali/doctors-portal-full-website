@@ -8,6 +8,7 @@ import {
 import './App.css';
 import AuthProvider from "./contexts/AuthProvider";
 import Appoinment from "./pages/Appoinment/Appoinment/Appoinment";
+import Dashboard from "./pages/Dashboard/Dashboard/Dashboard";
 import Home from "./pages/Home/Home/Home";
 import Login from "./pages/Login/Login";
 import PrivateRoute from "./pages/PrivateRoute/PrivateRoute";
@@ -26,6 +27,10 @@ function App() {
 
             <PrivateRoute path="/appoinment">
               <Appoinment></Appoinment>
+            </PrivateRoute>
+
+            <PrivateRoute path="/dashboard">
+              <Dashboard></Dashboard>
             </PrivateRoute>
 
             <Route path="/login">
